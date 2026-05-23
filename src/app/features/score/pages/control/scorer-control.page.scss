@@ -1,144 +1,36 @@
-.console-loading {
+.placeholder-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 64px 24px;
-  gap: 12px;
-  color: #94a3b8;
+  text-align: center;
+  padding: 48px 24px;
+  gap: 8px;
   min-height: 60vh;
 }
-.console-loading p {
-  margin: 0;
-  font-size: 0.9rem;
-}
 
-.console {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 24px 16px;
-}
-
-.console-info {
-  text-align: center;
-  margin-bottom: 24px;
-}
-
-.console-info__sport {
-  font-size: 1rem;
+.placeholder-page h2 {
+  font-size: 1.25rem;
   font-weight: 700;
   color: #0f172a;
+  margin: 0;
 }
 
-.console-info__rule {
-  font-size: 0.8rem;
+.placeholder-page p {
   color: #64748b;
-  margin-top: 2px;
+  font-size: 0.9rem;
+  margin: 0;
 }
 
-.console-info__call {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: #5d3e8e;
-  font-family: monospace;
-  margin-top: 8px;
-}
-
-/* Score panels */
-.console-panels {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 24px;
-}
-
-.console-panel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding: 24px 12px;
-  border-radius: 16px;
-  color: #fff;
-}
-
-.console-panel--a {
-  background: #1e1b4b;
-}
-
-.console-panel--b {
-  background: #1e1b4b;
-}
-
-.console-panel__header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.placeholder-page code {
+  background: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 4px;
   font-size: 0.8rem;
-  font-weight: 600;
-  color: #94a3b8;
 }
 
-.console-panel__team-badge {
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 6px;
-  font-size: 0.7rem;
-  font-weight: 800;
-  flex-shrink: 0;
-}
-
-.console-panel__team-badge--a {
-  background: #5d3e8e;
-}
-
-.console-panel__team-badge--b {
-  background: #dc2626;
-}
-
-.console-panel__score {
-  font-size: 3.5rem;
-  font-weight: 800;
-  line-height: 1;
-}
-
-.console-panel__players {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  font-size: 0.75rem;
-  color: #94a3b8;
-}
-
-/* Status */
-.console-status {
-  text-align: center;
-  margin-bottom: 24px;
-  font-size: 0.85rem;
-  color: #64748b;
-}
-.console-status p {
-  margin: 4px 0;
-}
-
-/* Placeholder */
-.console-placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding: 24px;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  color: #94a3b8;
-  font-size: 0.875rem;
-  text-align: center;
-}
-.console-placeholder ion-icon {
-  font-size: 40px;
+.placeholder-msg {
+  color: #94a3b8 !important;
+  font-style: italic;
+  margin: 16px 0 !important;
 }

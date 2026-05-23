@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { NgIf, NgFor } from '@angular/common';
+import { NgIf, NgFor, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import {
   IonHeader, IonToolbar, IonTitle, IonContent, IonButton,
-  IonInput, IonSpinner,
+  IonInput, IonSpinner, ToastController,
 } from '@ionic/angular/standalone';
 import { ScoringService } from '../../../../core/services/scoring.service';
 import { SettingsService } from '../../../../core/services/settings.service';
@@ -15,6 +15,7 @@ import {
   CreateScoringMatchRequest,
   CreateScoringTeamRequest,
   CreateScoringPlayerRequest,
+  ScoringMatchDto,
 } from '../../../../core/models';
 import { PlayerSlotComponent } from '../../../../shared/components/player-slot/player-slot.component';
 
@@ -28,7 +29,7 @@ interface PlayerState {
   selector: 'app-score-setup',
   standalone: true,
   imports: [
-    NgIf, NgFor, FormsModule,
+    NgIf, NgFor, DatePipe, FormsModule, RouterLink,
     IonHeader, IonToolbar, IonTitle, IonContent,
     IonButton, IonInput, IonSpinner,
     PlayerSlotComponent,
@@ -38,80 +39,80 @@ interface PlayerState {
 })
 export class ScoreSetupPage implements OnInit {
   loadingInit = true;
-  requiresBooking = false;
   isSubmitting = false;
   formError = '';
 
   sports: ScoreSportDto[] = [];
-  ruleSets: ScoreRuleSetDto[] = [];
-
   selectedSport: ScoreSportDto | null = null;
   selectedRuleSet: ScoreRuleSetDto | null = null;
-  gameType: 'Doubles' | 'Singles' = 'Doubles';
+  gameType: 'SINGLES' | 'DOUBLES' = 'SINGLES';
 
-  teamAName = 'Team A';
-  teamBName = 'Team B';
+  teamAName = 'Player A';
+  teamBName = 'Player B';
 
   playersA: PlayerState[] = [{ playerName: '', registeredUserId: null, isGuest: true }];
   playersB: PlayerState[] = [{ playerName: '', registeredUserId: null, isGuest: true }];
 
+  /* History */
+  recentMatches: ScoringMatchDto[] = [];
+  historyLoading = false;
+
   constructor(
     private readonly scoringService: ScoringService,
-    private readonly settingsService: SettingsService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly toastCtrl: ToastController
   ) {}
 
   ngOnInit(): void {
-    this.loadData();
+    this.loadSetup();
+    this.loadHistory();
   }
 
   get playerSlotsA(): number[] {
-    return Array(this.gameType === 'Doubles' ? 2 : 1).fill(0);
+    return Array(this.gameType === 'DOUBLES' ? 2 : 1).fill(0);
   }
 
   get playerSlotsB(): number[] {
-    return Array(this.gameType === 'Doubles' ? 2 : 1).fill(0);
+    return Array(this.gameType === 'DOUBLES' ? 2 : 1).fill(0);
   }
 
-  private async loadData(): Promise<void> {
+  private async loadSetup(): Promise<void> {
     this.loadingInit = true;
-
     try {
-      const [requiresBooking, sports] = await Promise.all([
-        firstValueFrom(this.settingsService.getScoringSetting()),
-        firstValueFrom(this.scoringService.getSports()),
-      ]);
-
-      this.requiresBooking = requiresBooking ?? false;
+      const sports = await firstValueFrom(this.scoringService.getSports());
       this.sports = sports ?? [];
 
-      // Default to Pickleball
-      this.selectedSport = this.sports.find(
-        (s) => s.code === 'PICKLEBALL'
-      ) ?? this.sports[0] ?? null;
+      this.selectedSport = this.sports.find((s) => s.code === 'PICKLEBALL') ?? this.sports[0] ?? null;
 
       if (this.selectedSport) {
-        const ruleSets = await firstValueFrom(
-          this.scoringService.getRuleSets(this.selectedSport.code)
-        );
-        this.ruleSets = ruleSets ?? [];
-        this.selectedRuleSet = this.ruleSets.find(
-          (r) => r.code === 'PICKLEBALL_SIDE_OUT_11'
-        ) ?? this.ruleSets[0] ?? null;
+        const ruleSets = await firstValueFrom(this.scoringService.getRuleSets(this.selectedSport.code));
+        const rs = ruleSets ?? [];
+        this.selectedRuleSet = rs.find((r) => r.code === 'PICKLEBALL_SIDE_OUT_11') ?? rs[0] ?? null;
       }
     } catch {
-      // Load failure handled gracefully by leaving empty states
+      this.formError = 'Failed to load scoring configuration.';
     }
-
     this.loadingInit = false;
   }
 
-  setGameType(type: 'Doubles' | 'Singles'): void {
+  private loadHistory(): void {
+    this.historyLoading = true;
+    this.scoringService.getMyHistory().subscribe({
+      next: (matches) => {
+        this.recentMatches = matches ?? [];
+        this.historyLoading = false;
+      },
+      error: () => {
+        this.historyLoading = false;
+      },
+    });
+  }
+
+  setGameType(type: 'SINGLES' | 'DOUBLES'): void {
     this.gameType = type;
     this.formError = '';
 
-    // Reset player slots
-    if (type === 'Doubles') {
+    if (type === 'DOUBLES') {
       this.teamAName = 'Team A';
       this.teamBName = 'Team B';
       this.playersA = [
@@ -131,41 +132,20 @@ export class ScoreSetupPage implements OnInit {
   }
 
   onPlayerSelect(team: 'A' | 'B', index: number, result: { userId: string; fullName: string }): void {
-    if (team === 'A') {
-      this.playersA[index] = {
-        playerName: result.fullName,
-        registeredUserId: result.userId,
-        isGuest: false,
-      };
-    } else {
-      this.playersB[index] = {
-        playerName: result.fullName,
-        registeredUserId: result.userId,
-        isGuest: false,
-      };
-    }
+    const player = { playerName: result.fullName, registeredUserId: result.userId, isGuest: false };
+    if (team === 'A') this.playersA[index] = player;
+    else this.playersB[index] = player;
   }
 
   onPlayerNameChange(team: 'A' | 'B', index: number, value: string): void {
-    if (team === 'A') {
-      this.playersA[index] = {
-        playerName: value,
-        registeredUserId: null,
-        isGuest: true,
-      };
-    } else {
-      this.playersB[index] = {
-        playerName: value,
-        registeredUserId: null,
-        isGuest: true,
-      };
-    }
+    const player = { playerName: value, registeredUserId: null, isGuest: true };
+    if (team === 'A') this.playersA[index] = player;
+    else this.playersB[index] = player;
   }
 
-  startMatch(): void {
+  async startMatch(): Promise<void> {
     this.formError = '';
 
-    // Validate
     if (!this.selectedSport || !this.selectedRuleSet) {
       this.formError = 'Sport and rule set configuration is missing.';
       return;
@@ -192,7 +172,7 @@ export class ScoreSetupPage implements OnInit {
           registeredUserId: p.registeredUserId,
           playerName: p.playerName.trim(),
           isGuest: p.isGuest,
-        })
+        }),
       ),
     });
 
@@ -200,7 +180,7 @@ export class ScoreSetupPage implements OnInit {
       bookingId: null,
       sportCode: this.selectedSport.code,
       ruleSetCode: this.selectedRuleSet.code,
-      matchMode: 'OpenPlay',
+      matchMode: 'OPEN_PLAY',
       gameType: this.gameType,
       targetScore: this.selectedRuleSet.targetScore,
       winBy: this.selectedRuleSet.winBy,
@@ -211,8 +191,11 @@ export class ScoreSetupPage implements OnInit {
     };
 
     this.scoringService.createMatch(payload).subscribe({
-      next: (match) => {
+      next: async (match) => {
         this.isSubmitting = false;
+        const toast = await this.toastCtrl.create({ message: 'Match created!', duration: 2000, color: 'success', position: 'top' });
+        await toast.present();
+        this.loadHistory();
         this.router.navigate(['/score/match', match.id, 'control']);
       },
       error: (err) => {

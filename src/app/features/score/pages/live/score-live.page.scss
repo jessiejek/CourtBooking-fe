@@ -1,149 +1,36 @@
-.live-loading {
+.placeholder-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 64px 24px;
-  gap: 12px;
-  color: #94a3b8;
+  text-align: center;
+  padding: 48px 24px;
+  gap: 8px;
   min-height: 60vh;
 }
-.live-loading p {
-  margin: 0;
-  font-size: 0.9rem;
-}
 
-.live-scoreboard {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 24px 16px;
-  text-align: center;
-}
-
-.live-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 24px;
-}
-
-.live-header__info {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.live-sport {
+.placeholder-page h2 {
+  font-size: 1.25rem;
   font-weight: 700;
-  font-size: 1rem;
   color: #0f172a;
-}
-
-.live-type {
-  font-size: 0.75rem;
-  color: #64748b;
-  background: #f1f5f9;
-  padding: 2px 8px;
-  border-radius: 4px;
-}
-
-.live-badge {
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 3px 10px;
-  border-radius: 999px;
-  text-transform: uppercase;
-}
-
-.live-badge--live {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.live-display {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  padding: 32px 16px;
-  background: #0f172a;
-  border-radius: 16px;
-  margin-bottom: 16px;
-}
-
-.live-team {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  flex: 1;
-}
-
-.live-team__label {
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: #64748b;
-}
-
-.live-team__name {
-  font-size: 0.85rem;
-  color: #e2e8f0;
-  max-width: 120px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.live-team__score {
-  font-size: 4rem;
-  font-weight: 800;
-  color: #fff;
-  line-height: 1;
-}
-
-.live-divider {
-  flex-shrink: 0;
-}
-
-.live-divider__text {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #475569;
-}
-
-.live-call {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #5d3e8e;
-  font-family: monospace;
-  margin-bottom: 16px;
-}
-
-.live-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-bottom: 24px;
-}
-.live-meta p {
   margin: 0;
-  font-size: 0.85rem;
-  color: #64748b;
 }
 
-.live-placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding: 24px;
-  background: #f8fafc;
-  border-radius: 12px;
-  color: #94a3b8;
-  font-size: 0.875rem;
+.placeholder-page p {
+  color: #64748b;
+  font-size: 0.9rem;
+  margin: 0;
 }
-.live-placeholder ion-icon {
-  font-size: 40px;
+
+.placeholder-page code {
+  background: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.placeholder-msg {
+  color: #94a3b8 !important;
+  font-style: italic;
+  margin: 16px 0 !important;
 }

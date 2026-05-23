@@ -4,56 +4,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="live-loading" *ngIf="loading">
-    <ion-spinner name="dots"></ion-spinner>
-    <p>Loading match…</p>
-  </div>
-
-  <ng-container *ngIf="!loading && match">
-    <div class="live-scoreboard">
-      <div class="live-header">
-        <div class="live-header__info">
-          <span class="live-sport">{{ match.sportName }}</span>
-          <span class="live-type">{{ match.gameType }}</span>
-        </div>
-        <span class="live-badge live-badge--live">LIVE</span>
-      </div>
-
-      <div class="live-display">
-        <div class="live-team live-team--a">
-          <span class="live-team__label">Team A</span>
-          <span class="live-team__name">{{ match.teams[0]?.teamName ?? '-' }}</span>
-          <span class="live-team__score">{{ match.teamAScore }}</span>
-        </div>
-
-        <div class="live-divider">
-          <span class="live-divider__text">vs</span>
-        </div>
-
-        <div class="live-team live-team--b">
-          <span class="live-team__label">Team B</span>
-          <span class="live-team__name">{{ match.teams[1]?.teamName ?? '-' }}</span>
-          <span class="live-team__score">{{ match.teamBScore }}</span>
-        </div>
-      </div>
-
-      <div class="live-call">{{ match.scoreCall }}</div>
-
-      <div class="live-meta">
-        <p>Serving: {{ match.servingTeam === 'A' ? match.teams[0]?.teamName : match.teams[1]?.teamName }}</p>
-        <p>Status: {{ match.status }}</p>
-        <p>{{ match.gameType }} · Target {{ match.targetScore }}, Win by {{ match.winBy }}</p>
-      </div>
-
-      <div class="live-placeholder">
-        <ion-icon name="tv-outline"></ion-icon>
-        <p>Real-time scoreboard updates coming in Phase 2.</p>
-      </div>
-    </div>
-  </ng-container>
-
-  <div class="live-loading" *ngIf="!loading && !match">
-    <p>Match not found.</p>
+<ion-content class="ion-padding">
+  <div class="placeholder-page">
+    <h2>Live Scoreboard</h2>
+    <p>Match ID: <code>{{ matchId }}</code></p>
+    <p class="placeholder-msg">Live scoreboard will be implemented in Phase 2-FE.</p>
+    <ion-button routerLink="/score/setup" fill="outline">Back to Setup</ion-button>
   </div>
 </ion-content>
