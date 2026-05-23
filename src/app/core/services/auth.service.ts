@@ -20,7 +20,7 @@ export class AuthService {
   }
 
   get isLoggedIn(): boolean {
-    return this.token.hasToken() && !!this.currentUser;
+    return this.token.hasToken();
   }
 
   register(data: RegisterRequest): Observable<AuthResponse> {
