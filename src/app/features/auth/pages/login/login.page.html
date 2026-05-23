@@ -31,14 +31,38 @@
 
       <div class="social-divider"><span>Or continue with</span></div>
 
-      <div class="social-buttons">
-        <ion-button expand="block" fill="outline" disabled>
-          <ion-icon name="logo-google" slot="start"></ion-icon>
-          Google (coming soon)
+      <!-- Google official button -->
+      <div class="google-signin">
+        <div
+          #googleButton
+          class="google-signin__button"
+          *ngIf="canUseGoogleLogin && !googleSdkError"
+        ></div>
+
+        <ion-button
+          *ngIf="!canUseGoogleLogin || googleSdkError"
+          expand="block"
+          fill="outline"
+          type="button"
+          (click)="onGoogleFallbackClick()"
+          [disabled]="googleLoading || facebookLoading"
+        >
+          {{ googleSdkError ? 'Retry Google Sign-In' : 'Continue with Google' }}
         </ion-button>
-        <ion-button expand="block" fill="outline" disabled>
-          <ion-icon name="logo-facebook" slot="start"></ion-icon>
-          Facebook (coming soon)
+
+        <div class="google-status" *ngIf="googleLoading">
+          <ion-spinner name="dots"></ion-spinner>
+          <span>Finishing Google sign-in...</span>
+        </div>
+
+        <p class="form-error" *ngIf="googleSdkError">{{ googleSdkError }}</p>
+      </div>
+
+      <!-- Facebook button -->
+      <div class="social-buttons">
+        <ion-button expand="block" fill="outline" (click)="onFacebookLogin()" [disabled]="facebookLoading || googleLoading">
+          <ion-spinner *ngIf="facebookLoading" name="dots"></ion-spinner>
+          <span *ngIf="!facebookLoading">Continue with Facebook</span>
         </ion-button>
       </div>
 

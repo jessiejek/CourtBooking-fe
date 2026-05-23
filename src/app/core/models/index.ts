@@ -1,3 +1,9 @@
+export interface SocialLoginRequest {
+  provider: 'google' | 'facebook';
+  idToken?: string | null;
+  accessToken?: string | null;
+}
+
 export interface RegisterRequest {
   fullName: string;
   email: string;

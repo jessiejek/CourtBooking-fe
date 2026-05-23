@@ -39,6 +39,45 @@
         </ion-button>
       </form>
 
+      <div class="social-divider"><span>Or sign up with</span></div>
+
+      <!-- Google official button -->
+      <div class="google-signin">
+        <div
+          #googleButton
+          class="google-signin__button"
+          *ngIf="canUseGoogleLogin && !googleSdkError"
+        ></div>
+
+        <ion-button
+          *ngIf="!canUseGoogleLogin || googleSdkError"
+          expand="block"
+          fill="outline"
+          type="button"
+          (click)="onGoogleFallbackClick()"
+          [disabled]="googleLoading || facebookLoading"
+        >
+          {{ googleSdkError ? 'Retry Google Sign-Up' : 'Continue with Google' }}
+        </ion-button>
+
+        <div class="google-status" *ngIf="googleLoading">
+          <ion-spinner name="dots"></ion-spinner>
+          <span>Finishing Google sign-up...</span>
+        </div>
+
+        <p class="form-error" *ngIf="googleSdkError">{{ googleSdkError }}</p>
+      </div>
+
+      <!-- Facebook button -->
+      <div class="social-buttons">
+        <ion-button expand="block" fill="outline" (click)="onFacebookSignup()" [disabled]="facebookLoading || googleLoading">
+          <ion-spinner *ngIf="facebookLoading" name="dots"></ion-spinner>
+          <span *ngIf="!facebookLoading">Continue with Facebook</span>
+        </ion-button>
+      </div>
+
+      <p class="social-hint">Social sign-in will create your account if it does not exist.</p>
+
       <p class="auth-link">
         Already have an account? <a routerLink="/auth/login">Log in</a>
       </p>

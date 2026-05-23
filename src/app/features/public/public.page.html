@@ -8,11 +8,11 @@
           Start tracking games instantly, no booking required.
         </p>
         <div class="hero__actions">
-          <ion-button routerLink="/score/setup" class="btn-primary hero__cta">
+          <ion-button (click)="goTo('/score/setup')" class="btn-primary hero__cta">
             <ion-icon name="play" slot="start"></ion-icon>
             Start Scoring
           </ion-button>
-          <ion-button routerLink="/auth/register" fill="outline" class="hero__cta hero__cta--outline">
+          <ion-button (click)="goTo('/auth/register')" fill="outline" class="hero__cta hero__cta--outline">
             Create Account
           </ion-button>
         </div>

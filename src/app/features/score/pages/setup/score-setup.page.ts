@@ -15,9 +15,8 @@ import {
   CreateScoringMatchRequest,
   CreateScoringTeamRequest,
   CreateScoringPlayerRequest,
-  RegisteredPlayerSearchDto,
 } from '../../../../core/models';
-import { PlayerSlotComponent, SearchResult } from '../../../../shared/components/player-slot/player-slot.component';
+import { PlayerSlotComponent } from '../../../../shared/components/player-slot/player-slot.component';
 
 interface PlayerState {
   playerName: string;
@@ -56,8 +55,6 @@ export class ScoreSetupPage implements OnInit {
   playersA: PlayerState[] = [{ playerName: '', registeredUserId: null, isGuest: true }];
   playersB: PlayerState[] = [{ playerName: '', registeredUserId: null, isGuest: true }];
 
-  playerSlotRefs: Record<string, PlayerSlotComponent> = {};
-
   constructor(
     private readonly scoringService: ScoringService,
     private readonly settingsService: SettingsService,
@@ -65,7 +62,7 @@ export class ScoreSetupPage implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadInit();
+    this.loadData();
   }
 
   get playerSlotsA(): number[] {
@@ -109,13 +106,6 @@ export class ScoreSetupPage implements OnInit {
     this.loadingInit = false;
   }
 
-  private loadInit(): void {
-    this.loadingInit = true;
-
-    // Load settings, sports, and rule sets
-    this.loadData();
-  }
-
   setGameType(type: 'Doubles' | 'Singles'): void {
     this.gameType = type;
     this.formError = '';
@@ -138,27 +128,6 @@ export class ScoreSetupPage implements OnInit {
       this.playersA = [{ playerName: '', registeredUserId: null, isGuest: true }];
       this.playersB = [{ playerName: '', registeredUserId: null, isGuest: true }];
     }
-  }
-
-  onPlayerSearch(team: 'A' | 'B', index: number, query: string): void {
-    if (query.length < 2) return;
-
-    this.scoringService.searchPlayers(query).subscribe({
-      next: (results) => {
-        const refKey = `${team}-${index}`;
-        const slotRef = this.playerSlotRefs[refKey];
-        if (slotRef) {
-          slotRef.setSearchResults(
-            results.map((r) => ({
-              userId: r.userId,
-              fullName: r.fullName,
-              email: r.email,
-            }))
-          );
-        }
-      },
-      // Silent fail — typing manually is fine
-    });
   }
 
   onPlayerSelect(team: 'A' | 'B', index: number, result: { userId: string; fullName: string }): void {

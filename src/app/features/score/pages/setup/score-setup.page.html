@@ -85,7 +85,6 @@
           [teamCode]="'A'"
           [playerName]="playersA[i]?.playerName ?? ''"
           [registeredUserId]="playersA[i]?.registeredUserId ?? null"
-          (playerSearch)="onPlayerSearch('A', i, $event)"
           (playerSelect)="onPlayerSelect('A', i, $event)"
           (playerNameChange)="onPlayerNameChange('A', i, $event)"
         ></app-player-slot>
@@ -110,7 +109,6 @@
           [teamCode]="'B'"
           [playerName]="playersB[i]?.playerName ?? ''"
           [registeredUserId]="playersB[i]?.registeredUserId ?? null"
-          (playerSearch)="onPlayerSearch('B', i, $event)"
           (playerSelect)="onPlayerSelect('B', i, $event)"
           (playerNameChange)="onPlayerNameChange('B', i, $event)"
         ></app-player-slot>

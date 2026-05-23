@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { ApiService } from './api.service';
 import { TokenService } from './token.service';
-import { AuthResponse, LoginRequest, RegisterRequest, User } from '../models';
+import { AuthResponse, LoginRequest, RegisterRequest, SocialLoginRequest, User } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -11,7 +11,8 @@ export class AuthService {
 
   constructor(
     private readonly api: ApiService,
-    private readonly token: TokenService
+    private readonly token: TokenService,
+    private readonly ngZone: NgZone
   ) {}
 
   get currentUser(): User | null {
@@ -31,6 +32,12 @@ export class AuthService {
   login(data: LoginRequest): Observable<AuthResponse> {
     return this.api.post<AuthResponse>('/auth/login', data).pipe(
       tap((res) => this.handleAuthResponse(res))
+    );
+  }
+
+  socialLogin(data: SocialLoginRequest): Observable<AuthResponse> {
+    return this.api.post<AuthResponse>('/auth/social-login', data).pipe(
+      tap((res) => this.ngZone.run(() => this.handleAuthResponse(res)))
     );
   }
 
