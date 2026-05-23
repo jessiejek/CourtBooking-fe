@@ -1,0 +1,28 @@
+/* Core CSS */
+:root {
+  --ion-color-primary: #5d3e8e;
+  --ion-color-primary-rgb: 93, 62, 142;
+  --ion-color-primary-shade: #4e3377;
+  --ion-color-primary-tint: #7a5caa;
+  --ion-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Reset */
+* {
+  box-sizing: border-box;
+}
+
+ion-content {
+  --background: #f8fafc;
+}
+
+/* Utility classes */
+.ion-padding {
+  padding: 16px;
+}
+
+@media (max-width: 640px) {
+  .ion-padding {
+    padding: 12px;
+  }
+}

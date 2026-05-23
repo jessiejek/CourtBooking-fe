@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="auth-page">
+    <div class="auth-card">
+      <h2 class="auth-title">Welcome Back</h2>
+      <p class="auth-subtitle">Sign in to manage your scoring.</p>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="auth-form">
+        <ion-item class="form-field" lines="none">
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input formControlName="email" type="email" placeholder="you@example.com" autocomplete="email"></ion-input>
+        </ion-item>
+
+        <ion-item class="form-field" lines="none">
+          <ion-label position="stacked">Password</ion-label>
+          <ion-input formControlName="password" type="password" autocomplete="current-password"></ion-input>
+        </ion-item>
+
+        <div class="form-error" *ngIf="error">{{ error }}</div>
+
+        <ion-button type="submit" expand="block" class="btn-primary" [disabled]="form.invalid || loading">
+          <ion-spinner *ngIf="loading" name="dots"></ion-spinner>
+          <span *ngIf="!loading">Sign In</span>
+        </ion-button>
+      </form>
+
+      <div class="social-divider"><span>Or continue with</span></div>
+
+      <div class="social-buttons">
+        <ion-button expand="block" fill="outline" disabled>
+          <ion-icon name="logo-google" slot="start"></ion-icon>
+          Google (coming soon)
+        </ion-button>
+        <ion-button expand="block" fill="outline" disabled>
+          <ion-icon name="logo-facebook" slot="start"></ion-icon>
+          Facebook (coming soon)
+        </ion-button>
+      </div>
+
+      <p class="auth-link">
+        Don't have an account? <a routerLink="/auth/register">Create one</a>
+      </p>
+    </div>
+  </div>
+</ion-content>

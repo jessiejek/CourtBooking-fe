@@ -1,0 +1,35 @@
+.dashboard {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+}
+
+.page-subtitle {
+  color: #64748b;
+  margin: 0 0 24px 0;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.dashboard-card {
+  cursor: pointer;
+  transition: box-shadow 0.15s;
+}
+.dashboard-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.card-icon {
+  font-size: 32px;
+  color: #5d3e8e;
+}

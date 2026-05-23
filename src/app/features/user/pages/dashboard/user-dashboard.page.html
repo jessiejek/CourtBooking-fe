@@ -1,0 +1,24 @@
+<ion-content class="ion-padding">
+  <div class="dashboard">
+    <h1 class="page-title">User Dashboard</h1>
+    <p class="page-subtitle">Welcome back, {{ (currentUser$ | async)?.fullName }}!</p>
+
+    <div class="dashboard-grid">
+      <ion-card routerLink="/score/setup" class="dashboard-card">
+        <ion-card-header>
+          <ion-icon name="play-circle-outline" class="card-icon"></ion-icon>
+          <ion-card-title>Start Scoring</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>Begin a new match or join an existing one.</ion-card-content>
+      </ion-card>
+
+      <ion-card routerLink="/score/history" class="dashboard-card">
+        <ion-card-header>
+          <ion-icon name="time-outline" class="card-icon"></ion-icon>
+          <ion-card-title>Match History</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>View your past matches and scores.</ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

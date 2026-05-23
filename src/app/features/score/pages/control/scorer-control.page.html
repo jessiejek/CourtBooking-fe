@@ -1,0 +1,31 @@
+<ion-content class="ion-padding">
+  <div class="scorer-console">
+    <app-page-header title="Scorer Console" subtitle="Control panel for match officials."></app-page-header>
+
+    <div class="console-scores">
+      <div class="score-panel">
+        <span class="score-panel__label">Team A</span>
+        <span class="score-panel__points">0</span>
+        <div class="score-panel__controls">
+          <ion-button size="small" fill="outline">+1</ion-button>
+          <ion-button size="small" fill="outline">-1</ion-button>
+        </div>
+      </div>
+      <div class="score-panel">
+        <span class="score-panel__label">Team B</span>
+        <span class="score-panel__points">0</span>
+        <div class="score-panel__controls">
+          <ion-button size="small" fill="outline">+1</ion-button>
+          <ion-button size="small" fill="outline">-1</ion-button>
+        </div>
+      </div>
+    </div>
+
+    <div class="console-actions">
+      <ion-button expand="block" disabled>New Game</ion-button>
+      <ion-button expand="block" fill="outline" color="danger" disabled>End Match</ion-button>
+    </div>
+
+    <p class="console-note">Scorer controls will be wired in the next phase.</p>
+  </div>
+</ion-content>

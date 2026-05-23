@@ -1,0 +1,94 @@
+.scoreboard {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.scoreboard__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.scoreboard__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.scoreboard__status {
+  padding: 3px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+.badge--success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.scoreboard__display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 32px;
+  background: #0f172a;
+  border-radius: 16px;
+  color: #fff;
+  margin-bottom: 24px;
+}
+
+.team-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.team-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+.team-points {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.score-divider {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.scoreboard__info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 24px;
+  font-size: 0.875rem;
+  color: #64748b;
+}
+.scoreboard__info p { margin: 0; }
+
+.scoreboard__placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px;
+  background: #f8fafc;
+  border-radius: 12px;
+  color: #94a3b8;
+  font-size: 0.875rem;
+}
+.scoreboard__placeholder ion-icon {
+  font-size: 40px;
+}

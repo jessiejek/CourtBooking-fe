@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="auth-page">
+    <div class="auth-card">
+      <h2 class="auth-title">Create Account</h2>
+      <p class="auth-subtitle">Join CourtBooking to start scoring.</p>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="auth-form">
+        <ion-item class="form-field" lines="none">
+          <ion-label position="stacked">Full Name</ion-label>
+          <ion-input formControlName="fullName" placeholder="Your full name" autocomplete="name"></ion-input>
+        </ion-item>
+
+        <ion-item class="form-field" lines="none">
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input formControlName="email" type="email" placeholder="you@example.com" autocomplete="email"></ion-input>
+        </ion-item>
+
+        <ion-item class="form-field" lines="none">
+          <ion-label position="stacked">Password</ion-label>
+          <ion-input formControlName="password" type="password" autocomplete="new-password"></ion-input>
+        </ion-item>
+
+        <ion-item class="form-field" lines="none">
+          <ion-label position="stacked">Confirm Password</ion-label>
+          <ion-input formControlName="confirmPassword" type="password" autocomplete="new-password"></ion-input>
+        </ion-item>
+
+        <div class="form-error" *ngIf="error">{{ error }}</div>
+
+        <ion-button type="submit" expand="block" class="btn-primary" [disabled]="form.invalid || loading">
+          <ion-spinner *ngIf="loading" name="dots"></ion-spinner>
+          <span *ngIf="!loading">Create Account</span>
+        </ion-button>
+      </form>
+
+      <p class="auth-link">
+        Already have an account? <a routerLink="/auth/login">Log in</a>
+      </p>
+    </div>
+  </div>
+</ion-content>
