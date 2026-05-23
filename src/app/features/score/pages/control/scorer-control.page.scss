@@ -1,53 +1,144 @@
-.scorer-console {
-  max-width: 600px;
-  margin: 0 auto;
+.console-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 24px;
+  gap: 12px;
+  color: #94a3b8;
+  min-height: 60vh;
+}
+.console-loading p {
+  margin: 0;
+  font-size: 0.9rem;
 }
 
-.console-scores {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+.console {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.console-info {
+  text-align: center;
   margin-bottom: 24px;
 }
 
-.score-panel {
+.console-info__sport {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.console-info__rule {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.console-info__call {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #5d3e8e;
+  font-family: monospace;
+  margin-top: 8px;
+}
+
+/* Score panels */
+.console-panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.console-panel {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  padding: 24px 16px;
-  background: #0f172a;
+  padding: 24px 12px;
   border-radius: 16px;
   color: #fff;
 }
 
-.score-panel__label {
+.console-panel--a {
+  background: #1e1b4b;
+}
+
+.console-panel--b {
+  background: #1e1b4b;
+}
+
+.console-panel__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 0.8rem;
   font-weight: 600;
   color: #94a3b8;
-  text-transform: uppercase;
 }
 
-.score-panel__points {
-  font-size: 3rem;
+.console-panel__team-badge {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.console-panel__team-badge--a {
+  background: #5d3e8e;
+}
+
+.console-panel__team-badge--b {
+  background: #dc2626;
+}
+
+.console-panel__score {
+  font-size: 3.5rem;
   font-weight: 800;
   line-height: 1;
 }
 
-.score-panel__controls {
-  display: flex;
-  gap: 8px;
-}
-
-.console-actions {
+.console-panel__players {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 16px;
+  align-items: center;
+  gap: 2px;
+  font-size: 0.75rem;
+  color: #94a3b8;
 }
 
-.console-note {
+/* Status */
+.console-status {
   text-align: center;
+  margin-bottom: 24px;
   font-size: 0.85rem;
+  color: #64748b;
+}
+.console-status p {
+  margin: 4px 0;
+}
+
+/* Placeholder */
+.console-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
   color: #94a3b8;
+  font-size: 0.875rem;
+  text-align: center;
+}
+.console-placeholder ion-icon {
+  font-size: 40px;
 }

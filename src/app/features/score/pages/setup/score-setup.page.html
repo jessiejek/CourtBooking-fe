@@ -1,17 +1,149 @@
-<ion-content class="ion-padding">
-  <div class="score-setup">
-    <app-page-header title="Match Setup" subtitle="Configure and start a new match."></app-page-header>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Start Scoring</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-    <div class="setup-card">
-      <h3>Available Sports</h3>
-      <div class="sport-card">
-        <div class="sport-icon">🏓</div>
-        <div>
-          <strong>Pickleball</strong>
-          <p>Side-Out to 11, win by 2</p>
+<ion-content class="ion-padding">
+  <div class="setup-page" *ngIf="!loadingInit; else loadingInitTpl">
+
+    <!-- Sport + Rule Set Info -->
+    <section class="setup-section">
+      <h2 class="setup-section__title">Match Configuration</h2>
+
+      <div class="setup-card" *ngIf="selectedSport">
+        <div class="setup-card__row">
+          <span class="setup-card__label">Sport</span>
+          <span class="setup-card__value">{{ selectedSport.name }}</span>
         </div>
       </div>
-      <p class="setup-note">Scoring setup coming in the next phase. Players, match type, and rules will be configurable here.</p>
+
+      <div class="setup-card" *ngIf="selectedRuleSet">
+        <div class="setup-card__row">
+          <span class="setup-card__label">Scoring Mode</span>
+          <span class="setup-card__value">{{ selectedRuleSet.scoringMode }} — Target {{ selectedRuleSet.targetScore }}, Win by {{ selectedRuleSet.winBy }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Game Type -->
+    <section class="setup-section">
+      <h2 class="setup-section__title">Match Type</h2>
+      <div class="toggle-group">
+        <button
+          type="button"
+          class="toggle-btn"
+          [class.is-active]="gameType === 'Doubles'"
+          (click)="setGameType('Doubles')"
+        >Doubles</button>
+        <button
+          type="button"
+          class="toggle-btn"
+          [class.is-active]="gameType === 'Singles'"
+          (click)="setGameType('Singles')"
+        >Singles</button>
+      </div>
+    </section>
+
+    <!-- Match Mode -->
+    <section class="setup-section">
+      <h2 class="setup-section__title">Match Mode</h2>
+      <div class="setup-card">
+        <div class="setup-card__row">
+          <span>
+            <strong>Open Play</strong>
+            <p class="setup-hint">Open Play lets you score a match even without a court booking.</p>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <div *ngIf="requiresBooking" class="setup-warning">
+      Scoring currently requires a court booking. Open Play creation is disabled.
     </div>
+
+    <!-- Teams -->
+    <section class="setup-section">
+      <h2 class="setup-section__title">{{ gameType === 'Doubles' ? 'Teams' : 'Players' }}</h2>
+
+      <!-- Team A -->
+      <div class="team-card">
+        <div class="team-card__header">
+          <span class="team-badge team-badge--a">A</span>
+          <ion-input
+            class="team-name-input"
+            [ngModel]="teamAName"
+            (ngModelChange)="teamAName = $event"
+            placeholder="Team A name"
+            fill="outline"
+          ></ion-input>
+        </div>
+
+        <app-player-slot
+          *ngFor="let idx of playerSlotsA; let i = index"
+          [playerIndex]="i"
+          [teamCode]="'A'"
+          [playerName]="playersA[i]?.playerName ?? ''"
+          [registeredUserId]="playersA[i]?.registeredUserId ?? null"
+          (playerSearch)="onPlayerSearch('A', i, $event)"
+          (playerSelect)="onPlayerSelect('A', i, $event)"
+          (playerNameChange)="onPlayerNameChange('A', i, $event)"
+        ></app-player-slot>
+      </div>
+
+      <!-- Team B -->
+      <div class="team-card">
+        <div class="team-card__header">
+          <span class="team-badge team-badge--b">B</span>
+          <ion-input
+            class="team-name-input"
+            [ngModel]="teamBName"
+            (ngModelChange)="teamBName = $event"
+            placeholder="Team B name"
+            fill="outline"
+          ></ion-input>
+        </div>
+
+        <app-player-slot
+          *ngFor="let idx of playerSlotsB; let i = index"
+          [playerIndex]="i"
+          [teamCode]="'B'"
+          [playerName]="playersB[i]?.playerName ?? ''"
+          [registeredUserId]="playersB[i]?.registeredUserId ?? null"
+          (playerSearch)="onPlayerSearch('B', i, $event)"
+          (playerSelect)="onPlayerSelect('B', i, $event)"
+          (playerNameChange)="onPlayerNameChange('B', i, $event)"
+        ></app-player-slot>
+      </div>
+    </section>
+
+    <!-- Error -->
+    <div *ngIf="formError" class="setup-error">{{ formError }}</div>
+
+    <!-- Start Match -->
+    <ion-button
+      expand="block"
+      class="start-btn"
+      [disabled]="isSubmitting || requiresBooking"
+      (click)="startMatch()"
+    >
+      <ion-spinner *ngIf="isSubmitting" name="dots"></ion-spinner>
+      <span *ngIf="!isSubmitting">Start Match</span>
+    </ion-button>
+
   </div>
+
+  <!-- Loading template -->
+  <ng-template #loadingInitTpl>
+    <div class="setup-loading">
+      <ion-spinner name="dots"></ion-spinner>
+      <p>Loading scoring setup…</p>
+    </div>
+  </ng-template>
+
+  <ng-template #initErrorTpl>
+    <div class="setup-loading">
+      <p>Failed to load scoring setup. Please try again.</p>
+    </div>
+  </ng-template>
 </ion-content>

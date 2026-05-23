@@ -1,31 +1,59 @@
-<ion-content class="ion-padding">
-  <div class="scoreboard">
-    <div class="scoreboard__header">
-      <h1 class="scoreboard__title">Live Match</h1>
-      <span class="scoreboard__status badge badge--success">LIVE</span>
-    </div>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Live Scoreboard</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-    <div class="scoreboard__display">
-      <div class="team-score">
-        <span class="team-label">Team A</span>
-        <span class="team-points">0</span>
+<ion-content>
+  <div class="live-loading" *ngIf="loading">
+    <ion-spinner name="dots"></ion-spinner>
+    <p>Loading match…</p>
+  </div>
+
+  <ng-container *ngIf="!loading && match">
+    <div class="live-scoreboard">
+      <div class="live-header">
+        <div class="live-header__info">
+          <span class="live-sport">{{ match.sportName }}</span>
+          <span class="live-type">{{ match.gameType }}</span>
+        </div>
+        <span class="live-badge live-badge--live">LIVE</span>
       </div>
-      <span class="score-divider">vs</span>
-      <div class="team-score">
-        <span class="team-label">Team B</span>
-        <span class="team-points">0</span>
+
+      <div class="live-display">
+        <div class="live-team live-team--a">
+          <span class="live-team__label">Team A</span>
+          <span class="live-team__name">{{ match.teams[0]?.teamName ?? '-' }}</span>
+          <span class="live-team__score">{{ match.teamAScore }}</span>
+        </div>
+
+        <div class="live-divider">
+          <span class="live-divider__text">vs</span>
+        </div>
+
+        <div class="live-team live-team--b">
+          <span class="live-team__label">Team B</span>
+          <span class="live-team__name">{{ match.teams[1]?.teamName ?? '-' }}</span>
+          <span class="live-team__score">{{ match.teamBScore }}</span>
+        </div>
+      </div>
+
+      <div class="live-call">{{ match.scoreCall }}</div>
+
+      <div class="live-meta">
+        <p>Serving: {{ match.servingTeam === 'A' ? match.teams[0]?.teamName : match.teams[1]?.teamName }}</p>
+        <p>Status: {{ match.status }}</p>
+        <p>{{ match.gameType }} · Target {{ match.targetScore }}, Win by {{ match.winBy }}</p>
+      </div>
+
+      <div class="live-placeholder">
+        <ion-icon name="tv-outline"></ion-icon>
+        <p>Real-time scoreboard updates coming in Phase 2.</p>
       </div>
     </div>
+  </ng-container>
 
-    <div class="scoreboard__info">
-      <p>Sport: Pickleball</p>
-      <p>Rule Set: Side-Out to 11</p>
-      <p>Game: 1 of 3</p>
-    </div>
-
-    <div class="scoreboard__placeholder">
-      <ion-icon name="tv-outline"></ion-icon>
-      <p>Live scoreboard display coming in the next phase.</p>
-    </div>
+  <div class="live-loading" *ngIf="!loading && !match">
+    <p>Match not found.</p>
   </div>
 </ion-content>

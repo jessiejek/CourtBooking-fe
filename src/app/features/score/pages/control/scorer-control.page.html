@@ -1,31 +1,62 @@
-<ion-content class="ion-padding">
-  <div class="scorer-console">
-    <app-page-header title="Scorer Console" subtitle="Control panel for match officials."></app-page-header>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Scorer Console</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-    <div class="console-scores">
-      <div class="score-panel">
-        <span class="score-panel__label">Team A</span>
-        <span class="score-panel__points">0</span>
-        <div class="score-panel__controls">
-          <ion-button size="small" fill="outline">+1</ion-button>
-          <ion-button size="small" fill="outline">-1</ion-button>
+<ion-content>
+  <div class="console-loading" *ngIf="loading">
+    <ion-spinner name="dots"></ion-spinner>
+    <p>Loading match…</p>
+  </div>
+
+  <ng-container *ngIf="!loading && match">
+    <div class="console">
+      <div class="console-info">
+        <div class="console-info__sport">{{ match.sportName }}</div>
+        <div class="console-info__rule">{{ match.ruleSetName }}</div>
+        <div class="console-info__call">Score Call: <strong>{{ match.scoreCall }}</strong></div>
+      </div>
+
+      <div class="console-panels">
+        <div class="console-panel console-panel--a">
+          <div class="console-panel__header">
+            <span class="console-panel__team-badge console-panel__team-badge--a">A</span>
+            <span>{{ match.teams[0]?.teamName ?? 'Team A' }}</span>
+          </div>
+          <div class="console-panel__score">{{ match.teamAScore }}</div>
+          <div class="console-panel__players" *ngIf="match.teams[0]?.players?.length">
+            <span *ngFor="let p of match.teams[0].players">{{ p.playerName }}{{ p.isGuest ? ' (guest)' : '' }}</span>
+          </div>
+        </div>
+
+        <div class="console-panel console-panel--b">
+          <div class="console-panel__header">
+            <span class="console-panel__team-badge console-panel__team-badge--b">B</span>
+            <span>{{ match.teams[1]?.teamName ?? 'Team B' }}</span>
+          </div>
+          <div class="console-panel__score">{{ match.teamBScore }}</div>
+          <div class="console-panel__players" *ngIf="match.teams[1]?.players?.length">
+            <span *ngFor="let p of match.teams[1].players">{{ p.playerName }}{{ p.isGuest ? ' (guest)' : '' }}</span>
+          </div>
         </div>
       </div>
-      <div class="score-panel">
-        <span class="score-panel__label">Team B</span>
-        <span class="score-panel__points">0</span>
-        <div class="score-panel__controls">
-          <ion-button size="small" fill="outline">+1</ion-button>
-          <ion-button size="small" fill="outline">-1</ion-button>
-        </div>
+
+      <div class="console-status">
+        <p>Serving: <strong>{{ match.servingTeam === 'A' ? (match.teams[0]?.teamName ?? 'Team A') : (match.teams[1]?.teamName ?? 'Team B') }}</strong></p>
+        <p *ngIf="match.serverNumber">Server position: {{ match.serverNumber }}</p>
+        <p>Status: <strong>{{ match.status }}</strong></p>
+        <p>{{ match.gameType }} · Target {{ match.targetScore }}, Win by {{ match.winBy }}</p>
+      </div>
+
+      <div class="console-placeholder">
+        <ion-icon name="game-controller-outline"></ion-icon>
+        <p>Scoring console controls — rally, undo, end match — coming in Phase 2.</p>
       </div>
     </div>
+  </ng-container>
 
-    <div class="console-actions">
-      <ion-button expand="block" disabled>New Game</ion-button>
-      <ion-button expand="block" fill="outline" color="danger" disabled>End Match</ion-button>
-    </div>
-
-    <p class="console-note">Scorer controls will be wired in the next phase.</p>
+  <div class="console-loading" *ngIf="!loading && !match">
+    <p>Match not found.</p>
   </div>
 </ion-content>

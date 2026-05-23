@@ -1,10 +1,62 @@
-<ion-content class="ion-padding">
-  <div class="history">
-    <app-page-header title="Match History" subtitle="Review past matches and scores."></app-page-header>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Match History</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-    <div class="history-placeholder">
-      <ion-icon name="time-outline"></ion-icon>
-      <p>Match history will appear here once games have been played.</p>
+<ion-content class="ion-padding">
+  <div class="history-page">
+    <div class="history-loading" *ngIf="loading">
+      <ion-spinner name="dots"></ion-spinner>
+      <p>Loading matches…</p>
     </div>
+
+    <ng-container *ngIf="!loading">
+      <div *ngIf="matches.length === 0" class="history-empty">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <h3>No matches yet</h3>
+        <p>Create an open play match to start scoring.</p>
+        <ion-button routerLink="/score/setup" class="start-btn">Start Scoring</ion-button>
+      </div>
+
+      <div *ngIf="matches.length > 0" class="match-list">
+        <div class="match-card" *ngFor="let match of matches">
+          <div class="match-card__header">
+            <div>
+              <span class="match-sport">{{ match.sportName }}</span>
+              <span class="match-type">{{ match.gameType }}</span>
+            </div>
+            <span class="match-status" [class]="'match-status--' + match.status.toLowerCase()">
+              {{ match.status }}
+            </span>
+          </div>
+
+          <div class="match-card__scores">
+            <div class="match-team">
+              <span class="match-team__code match-team__code--a">A</span>
+              <span class="match-team__name">{{ match.teams[0]?.teamName ?? 'Team A' }}</span>
+              <span class="match-team__score">{{ match.teamAScore }}</span>
+            </div>
+            <span class="match-vs">vs</span>
+            <div class="match-team">
+              <span class="match-team__code match-team__code--b">B</span>
+              <span class="match-team__name">{{ match.teams[1]?.teamName ?? 'Team B' }}</span>
+              <span class="match-team__score">{{ match.teamBScore }}</span>
+            </div>
+          </div>
+
+          <div class="match-card__call">{{ match.scoreCall }}</div>
+
+          <div class="match-card__actions">
+            <ion-button size="small" fill="clear" [routerLink]="['/score/match', match.id, 'control']">
+              Scoring Console
+            </ion-button>
+            <ion-button size="small" fill="clear" [routerLink]="['/score/live', match.id]">
+              Live Scoreboard
+            </ion-button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
   </div>
 </ion-content>

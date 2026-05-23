@@ -1,27 +1,178 @@
-.history {
+.history-page {
   max-width: 600px;
   margin: 0 auto;
 }
 
-.history-placeholder {
+.history-loading {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
   padding: 48px 24px;
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
+  gap: 8px;
   color: #94a3b8;
+}
+
+.history-loading p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Empty */
+.history-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 24px;
   text-align: center;
 }
 
-.history-placeholder ion-icon {
+.history-empty ion-icon {
   font-size: 48px;
+  color: #cbd5e1;
+  margin-bottom: 16px;
 }
 
-.history-placeholder p {
+.history-empty h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #334155;
+  margin: 0 0 8px 0;
+}
+
+.history-empty p {
+  color: #94a3b8;
+  font-size: 0.875rem;
+  margin: 0 0 20px 0;
+}
+
+.start-btn {
+  --background: #5d3e8e;
+}
+
+/* Match cards */
+.match-list {
+  display: grid;
+  gap: 16px;
+}
+
+.match-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.match-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.match-sport {
+  font-weight: 600;
   font-size: 0.9rem;
-  margin: 0;
-  line-height: 1.5;
+  color: #0f172a;
+}
+
+.match-type {
+  font-size: 0.75rem;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 8px;
+}
+
+.match-status {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.match-status--inprogress {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.match-status--completed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.match-status--cancelled {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Scores */
+.match-card__scores {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.match-team {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.match-team__code {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.match-team__code--a { background: #5d3e8e; }
+.match-team__code--b { background: #dc2626; }
+
+.match-team__name {
+  font-size: 0.85rem;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.match-team__score {
+  font-size: 1.25rem;
+  font-weight: 800;
+  font-family: monospace;
+}
+
+.match-vs {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+
+.match-card__call {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-family: monospace;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.match-card__actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 10px;
 }

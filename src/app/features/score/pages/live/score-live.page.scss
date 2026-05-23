@@ -1,10 +1,26 @@
-.scoreboard {
+.live-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 24px;
+  gap: 12px;
+  color: #94a3b8;
+  min-height: 60vh;
+}
+.live-loading p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.live-scoreboard {
   max-width: 600px;
   margin: 0 auto;
+  padding: 24px 16px;
   text-align: center;
 }
 
-.scoreboard__header {
+.live-header {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,73 +28,112 @@
   margin-bottom: 24px;
 }
 
-.scoreboard__title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0;
+.live-header__info {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
-.scoreboard__status {
-  padding: 3px 10px;
-  font-size: 0.75rem;
+.live-sport {
   font-weight: 700;
+  font-size: 1rem;
+  color: #0f172a;
+}
+
+.live-type {
+  font-size: 0.75rem;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.live-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
   border-radius: 999px;
   text-transform: uppercase;
 }
-.badge--success {
+
+.live-badge--live {
   background: #dcfce7;
   color: #166534;
 }
 
-.scoreboard__display {
+.live-display {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 24px;
-  padding: 32px;
+  gap: 16px;
+  padding: 32px 16px;
   background: #0f172a;
   border-radius: 16px;
-  color: #fff;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
-.team-score {
+.live-team {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  flex: 1;
 }
 
-.team-label {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #94a3b8;
+.live-team__label {
+  font-size: 0.7rem;
+  font-weight: 700;
   text-transform: uppercase;
-}
-
-.team-points {
-  font-size: 4rem;
-  font-weight: 800;
-  line-height: 1;
-}
-
-.score-divider {
-  font-size: 1.5rem;
-  font-weight: 600;
   color: #64748b;
 }
 
-.scoreboard__info {
+.live-team__name {
+  font-size: 0.85rem;
+  color: #e2e8f0;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.live-team__score {
+  font-size: 4rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+}
+
+.live-divider {
+  flex-shrink: 0;
+}
+
+.live-divider__text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #475569;
+}
+
+.live-call {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #5d3e8e;
+  font-family: monospace;
+  margin-bottom: 16px;
+}
+
+.live-meta {
   display: flex;
   flex-direction: column;
   gap: 4px;
   margin-bottom: 24px;
-  font-size: 0.875rem;
+}
+.live-meta p {
+  margin: 0;
+  font-size: 0.85rem;
   color: #64748b;
 }
-.scoreboard__info p { margin: 0; }
 
-.scoreboard__placeholder {
+.live-placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -89,6 +144,6 @@
   color: #94a3b8;
   font-size: 0.875rem;
 }
-.scoreboard__placeholder ion-icon {
+.live-placeholder ion-icon {
   font-size: 40px;
 }
