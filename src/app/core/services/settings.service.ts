@@ -10,6 +10,6 @@ export class SettingsService {
   getScoringSetting(): Observable<boolean> {
     return this.api
       .get<ScoringSettingDto>('/settings/scoring')
-      .pipe(map((s) => s.value === 'true'));
+      .pipe(map((s) => s.scoringRequiresBooking));
   }
 }

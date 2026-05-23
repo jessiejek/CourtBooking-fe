@@ -60,8 +60,7 @@ export interface ScoreRuleSetDto {
 }
 
 export interface ScoringSettingDto {
-  key: string;
-  value: string;
+  scoringRequiresBooking: boolean;
 }
 
 export interface RegisteredPlayerSearchDto {
